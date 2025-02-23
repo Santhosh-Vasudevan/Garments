@@ -3,16 +3,18 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'db_helper/Login service/Login split.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(
-    options: const FirebaseOptions(
-      apiKey: "AIzaSyCUp9FyGexwoXfJ0S-jkJo2qXlLppVaMp0",
-      appId: "1:695965985245:android:6495aafbb9c999ca9cee34",
-      messagingSenderId: "695965985245",
-      projectId: "e-commercebks",
+    options: FirebaseOptions(
+      apiKey: dotenv.env['API_KEY']!,
+      appId: dotenv.env['APP_ID']!,
+      messagingSenderId: dotenv.env['MESSAGING_SENDER_ID']!,
+      projectId: dotenv.env['PROJECT_ID']!,
     ),
   );
   await AwesomeNotifications().initialize(
